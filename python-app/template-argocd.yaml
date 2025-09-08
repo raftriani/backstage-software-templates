@@ -50,8 +50,8 @@ spec:
       name: Create ArgoCD Application via API
       action: run:shell
       input:
-        command: 'curl'
-        args:
+       command: 'curl'
+       args:
           - '-X'
           - 'POST'
           - 'http://argocd.test.com/api/v1/applications'
@@ -60,14 +60,38 @@ spec:
           - '-H'
           - 'Content-Type: application/json'
           - '-d'
-          - '{"metadata":{"name":"${{ parameters.component_id }}","namespace":"argocd"},"spec":{"project":"default","source":{"repoURL":"${{ steps.publish.output.remoteUrl }}","targetRevision":"HEAD","path":"."},"destination":{"server":"https://kubernetes.default.svc","namespace":"${{ parameters.component_id }}"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}'
+          - |
+            {
+              "metadata": {
+                "name": "${{ parameters.name }}",
+                "namespace": "argocd"
+              },
+              "spec": {
+                "project": "default",
+                "source": {
+                  "repoURL": "${{ steps.publish.output.remoteUrl }}",
+                  "targetRevision": "HEAD",
+                  "path": "."
+                },
+                "destination": {
+                  "server": "https://kubernetes.default.svc",
+                  "namespace": "${{ parameters.namespace || 'default' }}"
+                },
+                "syncPolicy": {
+                  "automated": {
+                    "prune": true,
+                    "selfHeal": true
+                  }
+                }
+              }
+            }
     
-        - id: register
-          name: Register
-          action: catalog:register
-          input:
-            repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
-            catalogInfoPath: "/catalog-info.yaml"
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
 
   output:
     links:
