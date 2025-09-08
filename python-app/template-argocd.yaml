@@ -47,44 +47,20 @@ spec:
         repoVisibility: public
 
     - id: create-argocd-app-curl
-      name: Create ArgoCD Application via API
-      action: run:shell
-      input:
-        command: 'curl'
-        args:
-          - '-X'
-          - 'POST'
-          - 'argocd.test.com/api/v1/applications'
-          - '-H'
-          - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
-          - '-H'
-          - 'Content-Type: application/json'
-          - '-d'
-          - |
-            {
-              "metadata": {
-                "name": "${{ parameters.name }}",
-                "namespace": "argocd"
-              },
-              "spec": {
-                "project": "default",
-                "source": {
-                  "repoURL": "${{ steps.publish.output.remoteUrl }}",
-                  "targetRevision": "HEAD",
-                  "path": "."
-                },
-                "destination": {
-                  "server": "https://kubernetes.default.svc",
-                  "namespace": "${{ parameters.namespace || 'default' }}"
-                },
-                "syncPolicy": {
-                  "automated": {
-                    "prune": true,
-                    "selfHeal": true
-                  }
-                }
-              }
-            }
+  name: Create ArgoCD Application via API
+  action: run:shell
+  input:
+    command: 'curl'
+    args:
+      - '-X'
+      - 'POST'
+      - 'https://argocd.test.com/api/v1/applications'
+      - '-H'
+      - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
+      - '-H'
+      - 'Content-Type: application/json'
+      - '-d'
+      - '{"metadata":{"name":"${{ parameters.component_id }}","namespace":"argocd"},"spec":{"project":"default","source":{"repoURL":"${{ steps.publish.output.remoteUrl }}","targetRevision":"HEAD","path":"."},"destination":{"server":"https://kubernetes.default.svc","namespace":"${{ parameters.component_id }}"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}'
 
     - id: register
       name: Register
