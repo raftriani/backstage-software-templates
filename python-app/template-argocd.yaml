@@ -54,7 +54,7 @@ spec:
         args:
           - '-X'
           - 'POST'
-          - 'https://argocd.test.com/api/v1/applications'
+          - 'http://argocd.test.com/api/v1/applications'
           - '-H'
           - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
           - '-H'
