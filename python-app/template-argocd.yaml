@@ -47,27 +47,27 @@ spec:
         repoVisibility: public
 
     - id: create-argocd-app-curl
-  name: Create ArgoCD Application via API
-  action: run:shell
-  input:
-    command: 'curl'
-    args:
-      - '-X'
-      - 'POST'
-      - 'https://argocd.test.com/api/v1/applications'
-      - '-H'
-      - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
-      - '-H'
-      - 'Content-Type: application/json'
-      - '-d'
-      - '{"metadata":{"name":"${{ parameters.component_id }}","namespace":"argocd"},"spec":{"project":"default","source":{"repoURL":"${{ steps.publish.output.remoteUrl }}","targetRevision":"HEAD","path":"."},"destination":{"server":"https://kubernetes.default.svc","namespace":"${{ parameters.component_id }}"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}'
-
-    - id: register
-      name: Register
-      action: catalog:register
+      name: Create ArgoCD Application via API
+      action: run:shell
       input:
-        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
-        catalogInfoPath: "/catalog-info.yaml"
+        command: 'curl'
+        args:
+          - '-X'
+          - 'POST'
+          - 'https://argocd.test.com/api/v1/applications'
+          - '-H'
+          - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
+          - '-H'
+          - 'Content-Type: application/json'
+          - '-d'
+          - '{"metadata":{"name":"${{ parameters.component_id }}","namespace":"argocd"},"spec":{"project":"default","source":{"repoURL":"${{ steps.publish.output.remoteUrl }}","targetRevision":"HEAD","path":"."},"destination":{"server":"https://kubernetes.default.svc","namespace":"${{ parameters.component_id }}"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}'
+    
+        - id: register
+          name: Register
+          action: catalog:register
+          input:
+            repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+            catalogInfoPath: "/catalog-info.yaml"
 
   output:
     links:
