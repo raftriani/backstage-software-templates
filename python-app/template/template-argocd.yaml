@@ -53,7 +53,7 @@ spec:
          method: 'POST'
          url: 'argocd.test.com/api/v1/applications'
          headers:
-           Authorization: 'Bearer q4bMc18Aegn57912'
+           Authorization: 'Bearer sxuq5iHmzKTgUnpa'
            Content-Type: 'application/json'
          body:
            metadata:
