@@ -47,9 +47,9 @@ spec:
         repoVisibility: public
 
     - id: create-argocd-app-api
-       name: Cria ArgoCD aplicação via API
-       action: http:backstage:request
-       input:
+      name: Cria ArgoCD aplicação via API
+      action: http:backstage:request
+      input:
          method: 'POST'
          url: 'argocd.test.com/api/v1/applications'
          headers:
