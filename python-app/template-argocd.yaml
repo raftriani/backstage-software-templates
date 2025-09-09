@@ -46,6 +46,18 @@ spec:
         protectDefaultBranch: false
         repoVisibility: public
 
+    - id: test-argocd-connection
+      name: Test ArgoCD Connection
+      action: run:shell
+      input:
+        command: 'curl'
+        args:
+          - '-L'
+          - '-v'
+          - '-H'
+          - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
+          - 'https://argocd.test.com/api/v1/version'
+
     - id: create-argocd-app-curl
       name: Create ArgoCD Application via API
       action: run:shell
@@ -54,7 +66,7 @@ spec:
        args:
           - '-X'
           - 'POST'
-          - 'http://argocd.test.com/api/v1/applications'
+          - 'https://argocd.test.com/api/v1/applications'
           - '-H'
           - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
           - '-H'
@@ -63,7 +75,7 @@ spec:
           - |
             {
               "metadata": {
-                "name": "${{ parameters.name }}",
+                "name": "${{ parameters.component_id }}",
                 "namespace": "argocd"
               },
               "spec": {
