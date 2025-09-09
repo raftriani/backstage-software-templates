@@ -52,6 +52,7 @@ spec:
       input:
         command: 'curl'
         args:
+          - '-k'  # Ignorar certificados SSL inválidos
           - '-L'
           - '-v'
           - '-H'
@@ -64,6 +65,8 @@ spec:
       input:
        command: 'curl'
        args:
+          - '-k'  # Ignorar certificados SSL inválidos
+          - '-L'  # Seguir redirects
           - '-X'
           - 'POST'
           - 'https://argocd.test.com/api/v1/applications'
