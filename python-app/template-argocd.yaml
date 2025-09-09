@@ -84,7 +84,7 @@ spec:
               "spec": {
                 "project": "default",
                 "source": {
-                  "repoURL": "${{ steps.publish.output.remoteUrl }}",
+                  "repoURL": "github.com?owner=RafaelTriani&repo=${{parameters.component_id}}",
                   "targetRevision": "HEAD",
                   "path": "."
                 },
