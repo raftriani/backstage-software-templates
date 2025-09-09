@@ -57,7 +57,7 @@ spec:
           - '-v'
           - '-H'
           - 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTc1NzUwMzY2OSwibmJmIjoxNzU3NDE3MjY5LCJpYXQiOjE3NTc0MTcyNjksImp0aSI6IjBmNjM3ODgxLTUyODQtNDRjOS1iNTFjLWQ4MTQ4OGRmODc5ZCJ9.l2Tgc98CK1b4wuZZ8kBYTut-5782rkNBHcZ48WvssqA'
-          - 'https://argocd.test.com/api/v1/version'
+          - 'https://argocd.test.com/api/v1/applications'
 
     - id: create-argocd-app-curl
       name: Create ArgoCD Application via API
@@ -84,7 +84,7 @@ spec:
               "spec": {
                 "project": "default",
                 "source": {
-                  "repoURL": "github.com?owner=RafaelTriani&repo=${{parameters.component_id}}",
+                  "repoURL": "https://github.com/RafaelTriani/${{ parameters.component_id }}",
                   "targetRevision": "HEAD",
                   "path": "."
                 },
