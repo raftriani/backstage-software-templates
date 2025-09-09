@@ -56,7 +56,7 @@ spec:
           - '-L'
           - '-v'
           - '-H'
-          - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
+          - 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTc1NzUwMzY2OSwibmJmIjoxNzU3NDE3MjY5LCJpYXQiOjE3NTc0MTcyNjksImp0aSI6IjBmNjM3ODgxLTUyODQtNDRjOS1iNTFjLWQ4MTQ4OGRmODc5ZCJ9.l2Tgc98CK1b4wuZZ8kBYTut-5782rkNBHcZ48WvssqA'
           - 'https://argocd.test.com/api/v1/version'
 
     - id: create-argocd-app-curl
@@ -71,7 +71,7 @@ spec:
           - 'POST'
           - 'https://argocd.test.com/api/v1/applications'
           - '-H'
-          - 'Authorization: Bearer sxuq5iHmzKTgUnpa'
+          - 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTc1NzUwMzY2OSwibmJmIjoxNzU3NDE3MjY5LCJpYXQiOjE3NTc0MTcyNjksImp0aSI6IjBmNjM3ODgxLTUyODQtNDRjOS1iNTFjLWQ4MTQ4OGRmODc5ZCJ9.l2Tgc98CK1b4wuZZ8kBYTut-5782rkNBHcZ48WvssqA'
           - '-H'
           - 'Content-Type: application/json'
           - '-d'
