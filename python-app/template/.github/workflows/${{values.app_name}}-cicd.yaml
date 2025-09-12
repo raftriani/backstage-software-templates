@@ -4,9 +4,6 @@ on:
   push:
     paths:
       - src/**
-      - charts/**
-      - Dockerfile
-      - requirements.txt
     branches:
       - main
   workflow_dispatch:
