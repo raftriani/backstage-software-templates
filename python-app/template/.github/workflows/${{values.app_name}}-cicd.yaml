@@ -23,8 +23,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ "${{ secrets.DOCKERHUB_USERNAME }}" }}
+          password: ${{ "${{ secrets.DOCKERHUB_TOKEN }}" }}
       
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -41,7 +41,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.TOKEN_GITHUB }}
+          token: ${{ "${{ secrets.TOKEN_GITHUB }}" }}
           fetch-depth: 0
 
       - name: Configure Git
@@ -135,14 +135,14 @@ jobs:
             --insecure  \
             --grpc-web \
             --username admin \
-            --password  ${{ secrets.ARGOCD_PASSWORD }}
+            --password  ${{ "${{ secrets.ARGOCD_PASSWORD }}" }}
 
       - name: Ensure ArgoCD repo and app
         shell: bash
         run: |
           # Usar token diretamente na URL (mais simples e confiável)
           repo_url="https://github.com/RafaelTriani/${{values.app_name}}.git"
-          repo_url_with_token="https://${{ secrets.TOKEN_GITHUB }}@github.com/RafaelTriani/python-app-work.git"
+          repo_url_with_token="https://${{ "${{ secrets.TOKEN_GITHUB }}" }}@github.com/RafaelTriani/${{values.app_name}}.git"
           
           # Verificar se o repo já existe, se não, adicionar
           if ! argocd repo list | grep -q "$repo_url"; then
