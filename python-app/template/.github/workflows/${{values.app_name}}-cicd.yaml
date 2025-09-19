@@ -30,9 +30,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: raftriani/${{values.app_name}}:${{ env.COMMIT_ID }}
+          tags: raftriani/${{values.app_name}}:${{ "${{ env.COMMIT_ID }}" }}
     outputs:
-      commit_id: ${{ env.COMMIT_ID }}
+      commit_id: ${{ "${{ env.COMMIT_ID }}" }}
 
   cd:
     needs: ci
@@ -59,9 +59,9 @@ jobs:
       - name: Modify values file
         shell: bash
         run: |
-          echo ${{needs.ci.outputs.commit_id}}
+          echo ${{ "${{needs.ci.outputs.commit_id}}" }}
           pip install yq
-          yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/${{values.app_name}}/values-dev.yaml
+          yq -Yi '.image.tag = "${{ "${{needs.ci.outputs.commit_id}}" }}"' charts/${{values.app_name}}/values-dev.yaml
 
       - name: Commit and push changes
         shell: bash
@@ -76,7 +76,7 @@ jobs:
           git add charts/${{values.app_name}}/values-dev.yaml
           
           # Fazer commit
-          git commit -m "Updates values-dev.yaml with commit ${{needs.ci.outputs.commit_id}}"
+          git commit -m "Updates values-dev.yaml with commit ${{ "${{needs.ci.outputs.commit_id}}" }}"
           
           # Tentar push com retry em caso de conflito
           max_attempts=3
@@ -97,9 +97,9 @@ jobs:
                 echo "Rebase falhou, resetando e tentando novamente..."
                 git rebase --abort
                 git reset --hard origin/main
-                yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/${{values.app_name}}/values-dev.yaml
+                yq -Yi '.image.tag = "${{ "${{needs.ci.outputs.commit_id}}" }}"' charts/${{values.app_name}}/values-dev.yaml
                 git add charts/${{values.app_name}}/values-dev.yaml
-                git commit -m "Updates values-dev.yaml with commit ${{needs.ci.outputs.commit_id}}"
+                git commit -m "Updates values-dev.yaml with commit ${{ "${{needs.ci.outputs.commit_id}}" }}"
               fi
               
               attempt=$((attempt + 1))
